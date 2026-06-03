@@ -1,0 +1,7 @@
+gradio
+diffusers
+transformers
+accelerate
+torch
+torchvision
+python-dotenv
