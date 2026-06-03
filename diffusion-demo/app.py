@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 import gradio as gr
 import torch
 from diffusers import StableDiffusionPipeline, DDIMScheduler
@@ -6,7 +10,7 @@ import random
 # ==========================================
 # CONFIGURACIÓN
 # ==========================================
-HF_TOKEN = "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"
+HF_TOKEN = os.getenv("HF_TOKEN")
 MODEL_ID = "runwayml/stable-diffusion-v1-5"
 
 PROMPTS = {
