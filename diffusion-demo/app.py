@@ -49,7 +49,9 @@ pipe = StableDiffusionPipeline.from_pretrained(
     scheduler=DDIMScheduler.from_pretrained(MODEL_ID, subfolder="scheduler"),
 )
 
-pipe = pipe.to("cuda")
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"⏳ Usando dispositivo: {device}")
+pipe = pipe.to(device)
 pipe.enable_attention_slicing(1)
 pipe.vae.enable_slicing()
 
@@ -66,7 +68,8 @@ def generate_image(prompt, category, steps, guidance, seed, use_random_prompt):
     if not prompt.strip():
         return None, "⚠️ Escribe un prompt o activa el prompt aleatorio"
 
-    generator = torch.Generator("cuda")
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    generator = torch.Generator(device)
     if seed == -1:
         seed = random.randint(0, 999999)
     generator.manual_seed(int(seed))
